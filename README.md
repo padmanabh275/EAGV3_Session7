@@ -235,4 +235,4 @@ Flipkart, Amazon.in, Croma, Reliance Digital, Vijay Sales, Tata Cliq, Snapdeal, 
 
 *After editing corpus: `uv run python scripts/build_shopping_corpus.py` then `uv run python scripts/index_shopping_corpus.py --fresh`*
 
-For Tests Queries refer to - llm_gatewayV7/test.md
+For Tests Queries refer to - Tests Path - [Open file](https://github.com/padmanabh275/EAGV3_Session7/blob/master/llm_gatewayV7/test.md)
