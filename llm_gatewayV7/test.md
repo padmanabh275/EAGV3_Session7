@@ -363,3 +363,5 @@ uv run pytest -v test_mcp_server.py -s
 ---
 
 *Report generated from live test runs on May 26, 2026. Re-run the commands above to refresh results.*
+
+Tests Path - [Open file](https://github.com/padmanabh275/EAGV3_Session7/blob/master/llm_gatewayV7/test.md)
