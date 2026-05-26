@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-05-26T13:58:54Z",
+  "catalog_stats": {
+    "products": 55,
+    "indexed_chunks": 58,
+    "fact_records": 57,
+    "currency": "INR",
+    "market": "India"
+  },
+  "gateway": "llm_gatewayV7 :8107",
+  "trace_id": "b07",
+  "type": "base",
+  "slug": "pulse-watch-s",
+  "query": "What is Reliance Digital's INR price for PulseWatch S SKU WEAR-FT-2202?",
+  "must_contain": [
+    "11,779",
+    "Reliance"
+  ],
+  "pass_checks": {
+    "11,779": false,
+    "Reliance": false
+  },
+  "pass": false,
+  "with_corpus": {
+    "use_index": true,
+    "answer": "Not in catalog index",
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "source_count": 6,
+    "top_sources": [
+      {
+        "rank": 1,
+        "source": "sandbox:corpus/products/pulse-watch-s-v3.md",
+        "indexed_from": null,
+        "chunk_preview": "# PulseWatch S SKU: WEAR-FT-2202 Category: Wearables Market: India (INR / ₹) PulseWatch S — AMOLED fitness band. Feature notes: India model 2025; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Snapdeal: ₹13,199 - JioMart: ₹11,539 - PriceA"
+      },
+      {
+        "rank": 2,
+        "source": "sandbox:corpus/products/brewmaster-12.md",
+        "indexed_from": null,
+        "chunk_preview": "# BrewMaster 12-Cup Thermal SKU: HOME-KET-3310 Category: Kitchen Market: India (INR / ₹) BrewMaster 12-Cup Thermal — drip coffee maker for Indian 230V, stainless thermal carafe. Programmable bloom; keeps heat ~4 hours. Suitable for filter coffee decoction or ground coffee. Pricin"
+      },
+      {
+        "rank": 3,
+        "source": "sandbox:corpus/products/cozy-throw-xl-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# CozyThrow XL SKU: HOME-TXT-5501 Category: Home Market: India (INR / ₹) CozyThrow XL — heated fleece throw for North India winters. Feature notes: India model 2025; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹5,549 - Amazon"
+      },
+      {
+        "rank": 4,
+        "source": "sandbox:corpus/products/frost-chest-7cu-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# FrostChest 7 cu ft SKU: APP-FRZ-1001 Category: Appliances Market: India (INR / ₹) FrostChest 7 cu ft — deep freezer 7 cu ft. Feature notes: India model 2024; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹39,799 - Amazon.in: "
+      }
+    ]
+  }
+}

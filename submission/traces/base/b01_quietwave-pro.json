@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-05-26T13:58:54Z",
+  "catalog_stats": {
+    "products": 55,
+    "indexed_chunks": 58,
+    "fact_records": 57,
+    "currency": "INR",
+    "market": "India"
+  },
+  "gateway": "llm_gatewayV7 :8107",
+  "trace_id": "b01",
+  "type": "base",
+  "slug": "quietwave-pro",
+  "query": "What is Flipkart's INR price for SKU ELEC-HEAD-8842 (QuietWave Pro)?",
+  "must_contain": [
+    "15,999",
+    "Flipkart"
+  ],
+  "pass_checks": {
+    "15,999": true,
+    "Flipkart": true
+  },
+  "pass": true,
+  "with_corpus": {
+    "use_index": true,
+    "answer": "Flipkart: ₹15,999",
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "source_count": 6,
+    "top_sources": [
+      {
+        "rank": 1,
+        "source": "sandbox:corpus/products/quietwave-pro.md",
+        "indexed_from": null,
+        "chunk_preview": "# QuietWave Pro SKU: ELEC-HEAD-8842 Category: Audio Market: India (INR / ₹) QuietWave Pro — over-ear closed-back headphones for daily commuters and open-plan staff. Acoustic design: adaptive feed-forward dampening for low-frequency rumble (Mumbai suburban local train vibration, m"
+      },
+      {
+        "rank": 2,
+        "source": "sandbox:corpus/products/terra-blender-pro-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# TerraBlend Pro SKU: KIT-APP-3301 Category: Kitchen Market: India (INR / ₹) TerraBlend Pro — 1400W mixer-grinder compatible blender. Feature notes: India model 2025; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Snapdeal: ₹8,799 - JioMa"
+      },
+      {
+        "rank": 3,
+        "source": "sandbox:corpus/products/brewmaster-12.md",
+        "indexed_from": null,
+        "chunk_preview": "# BrewMaster 12-Cup Thermal SKU: HOME-KET-3310 Category: Kitchen Market: India (INR / ₹) BrewMaster 12-Cup Thermal — drip coffee maker for Indian 230V, stainless thermal carafe. Programmable bloom; keeps heat ~4 hours. Suitable for filter coffee decoction or ground coffee. Pricin"
+      },
+      {
+        "rank": 4,
+        "source": "sandbox:corpus/products/cozy-throw-xl-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# CozyThrow XL SKU: HOME-TXT-5501 Category: Home Market: India (INR / ₹) CozyThrow XL — heated fleece throw for North India winters. Feature notes: India model 2025; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹5,549 - Amazon"
+      }
+    ]
+  }
+}

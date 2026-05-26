@@ -1,0 +1,283 @@
+{
+  "generated_at": "2026-05-26T13:58:54Z",
+  "market": "India",
+  "currency": "INR",
+  "product_count": 55,
+  "products": [
+    {
+      "slug": "quietwave-pro",
+      "sku": "ELEC-HEAD-8842",
+      "path": "sandbox\\corpus\\products\\quietwave-pro.md"
+    },
+    {
+      "slug": "voltendure-a54",
+      "sku": "PHON-AND-5521",
+      "path": "sandbox\\corpus\\products\\voltendure-a54.md"
+    },
+    {
+      "slug": "portacharge-mini",
+      "sku": "ACC-PWR-1099",
+      "path": "sandbox\\corpus\\products\\portacharge-mini.md"
+    },
+    {
+      "slug": "letterplay-softblocks",
+      "sku": "TOY-EDU-7720",
+      "path": "sandbox\\corpus\\products\\letterplay-softblocks.md"
+    },
+    {
+      "slug": "brewmaster-12",
+      "sku": "HOME-KET-3310",
+      "path": "sandbox\\corpus\\products\\brewmaster-12.md"
+    },
+    {
+      "slug": "nova-laptop-14",
+      "sku": "COMP-LAP-1001",
+      "path": "sandbox\\corpus\\products\\nova-laptop-14.md"
+    },
+    {
+      "slug": "pulse-watch-s",
+      "sku": "WEAR-FT-2202",
+      "path": "sandbox\\corpus\\products\\pulse-watch-s.md"
+    },
+    {
+      "slug": "terra-blender-pro",
+      "sku": "KIT-APP-3303",
+      "path": "sandbox\\corpus\\products\\terra-blender-pro.md"
+    },
+    {
+      "slug": "skydrone-mini",
+      "sku": "CAM-DRN-4404",
+      "path": "sandbox\\corpus\\products\\skydrone-mini.md"
+    },
+    {
+      "slug": "cozy-throw-xl",
+      "sku": "HOME-TXT-5505",
+      "path": "sandbox\\corpus\\products\\cozy-throw-xl.md"
+    },
+    {
+      "slug": "spark-gaming-mouse",
+      "sku": "GAM-PER-6606",
+      "path": "sandbox\\corpus\\products\\spark-gaming-mouse.md"
+    },
+    {
+      "slug": "pure-air-300",
+      "sku": "HOME-AR-7707",
+      "path": "sandbox\\corpus\\products\\pure-air-300.md"
+    },
+    {
+      "slug": "ridge-hiking-boot",
+      "sku": "OUT-FW-8808",
+      "path": "sandbox\\corpus\\products\\ridge-hiking-boot.md"
+    },
+    {
+      "slug": "luma-desk-lamp",
+      "sku": "OFF-LGT-9909",
+      "path": "sandbox\\corpus\\products\\luma-desk-lamp.md"
+    },
+    {
+      "slug": "frost-chest-7cu",
+      "sku": "APP-FRZ-1010",
+      "path": "sandbox\\corpus\\products\\frost-chest-7cu.md"
+    },
+    {
+      "slug": "nova-laptop-14-v2",
+      "sku": "COMP-LAP-1001",
+      "path": "sandbox\\corpus\\products\\nova-laptop-14-v2.md"
+    },
+    {
+      "slug": "pulse-watch-s-v2",
+      "sku": "WEAR-FT-2201",
+      "path": "sandbox\\corpus\\products\\pulse-watch-s-v2.md"
+    },
+    {
+      "slug": "terra-blender-pro-v2",
+      "sku": "KIT-APP-3301",
+      "path": "sandbox\\corpus\\products\\terra-blender-pro-v2.md"
+    },
+    {
+      "slug": "skydrone-mini-v2",
+      "sku": "CAM-DRN-4401",
+      "path": "sandbox\\corpus\\products\\skydrone-mini-v2.md"
+    },
+    {
+      "slug": "cozy-throw-xl-v2",
+      "sku": "HOME-TXT-5501",
+      "path": "sandbox\\corpus\\products\\cozy-throw-xl-v2.md"
+    },
+    {
+      "slug": "spark-gaming-mouse-v2",
+      "sku": "GAM-PER-6601",
+      "path": "sandbox\\corpus\\products\\spark-gaming-mouse-v2.md"
+    },
+    {
+      "slug": "pure-air-300-v2",
+      "sku": "HOME-AR-7701",
+      "path": "sandbox\\corpus\\products\\pure-air-300-v2.md"
+    },
+    {
+      "slug": "ridge-hiking-boot-v2",
+      "sku": "OUT-FW-8801",
+      "path": "sandbox\\corpus\\products\\ridge-hiking-boot-v2.md"
+    },
+    {
+      "slug": "luma-desk-lamp-v2",
+      "sku": "OFF-LGT-9901",
+      "path": "sandbox\\corpus\\products\\luma-desk-lamp-v2.md"
+    },
+    {
+      "slug": "frost-chest-7cu-v2",
+      "sku": "APP-FRZ-1001",
+      "path": "sandbox\\corpus\\products\\frost-chest-7cu-v2.md"
+    },
+    {
+      "slug": "nova-laptop-14-v3",
+      "sku": "COMP-LAP-1002",
+      "path": "sandbox\\corpus\\products\\nova-laptop-14-v3.md"
+    },
+    {
+      "slug": "pulse-watch-s-v3",
+      "sku": "WEAR-FT-2202",
+      "path": "sandbox\\corpus\\products\\pulse-watch-s-v3.md"
+    },
+    {
+      "slug": "terra-blender-pro-v3",
+      "sku": "KIT-APP-3302",
+      "path": "sandbox\\corpus\\products\\terra-blender-pro-v3.md"
+    },
+    {
+      "slug": "skydrone-mini-v3",
+      "sku": "CAM-DRN-4402",
+      "path": "sandbox\\corpus\\products\\skydrone-mini-v3.md"
+    },
+    {
+      "slug": "cozy-throw-xl-v3",
+      "sku": "HOME-TXT-5502",
+      "path": "sandbox\\corpus\\products\\cozy-throw-xl-v3.md"
+    },
+    {
+      "slug": "spark-gaming-mouse-v3",
+      "sku": "GAM-PER-6602",
+      "path": "sandbox\\corpus\\products\\spark-gaming-mouse-v3.md"
+    },
+    {
+      "slug": "pure-air-300-v3",
+      "sku": "HOME-AR-7702",
+      "path": "sandbox\\corpus\\products\\pure-air-300-v3.md"
+    },
+    {
+      "slug": "ridge-hiking-boot-v3",
+      "sku": "OUT-FW-8802",
+      "path": "sandbox\\corpus\\products\\ridge-hiking-boot-v3.md"
+    },
+    {
+      "slug": "luma-desk-lamp-v3",
+      "sku": "OFF-LGT-9902",
+      "path": "sandbox\\corpus\\products\\luma-desk-lamp-v3.md"
+    },
+    {
+      "slug": "frost-chest-7cu-v3",
+      "sku": "APP-FRZ-1002",
+      "path": "sandbox\\corpus\\products\\frost-chest-7cu-v3.md"
+    },
+    {
+      "slug": "nova-laptop-14-v4",
+      "sku": "COMP-LAP-1003",
+      "path": "sandbox\\corpus\\products\\nova-laptop-14-v4.md"
+    },
+    {
+      "slug": "pulse-watch-s-v4",
+      "sku": "WEAR-FT-2203",
+      "path": "sandbox\\corpus\\products\\pulse-watch-s-v4.md"
+    },
+    {
+      "slug": "terra-blender-pro-v4",
+      "sku": "KIT-APP-3303",
+      "path": "sandbox\\corpus\\products\\terra-blender-pro-v4.md"
+    },
+    {
+      "slug": "skydrone-mini-v4",
+      "sku": "CAM-DRN-4403",
+      "path": "sandbox\\corpus\\products\\skydrone-mini-v4.md"
+    },
+    {
+      "slug": "cozy-throw-xl-v4",
+      "sku": "HOME-TXT-5503",
+      "path": "sandbox\\corpus\\products\\cozy-throw-xl-v4.md"
+    },
+    {
+      "slug": "spark-gaming-mouse-v4",
+      "sku": "GAM-PER-6603",
+      "path": "sandbox\\corpus\\products\\spark-gaming-mouse-v4.md"
+    },
+    {
+      "slug": "pure-air-300-v4",
+      "sku": "HOME-AR-7703",
+      "path": "sandbox\\corpus\\products\\pure-air-300-v4.md"
+    },
+    {
+      "slug": "ridge-hiking-boot-v4",
+      "sku": "OUT-FW-8803",
+      "path": "sandbox\\corpus\\products\\ridge-hiking-boot-v4.md"
+    },
+    {
+      "slug": "luma-desk-lamp-v4",
+      "sku": "OFF-LGT-9903",
+      "path": "sandbox\\corpus\\products\\luma-desk-lamp-v4.md"
+    },
+    {
+      "slug": "frost-chest-7cu-v4",
+      "sku": "APP-FRZ-1003",
+      "path": "sandbox\\corpus\\products\\frost-chest-7cu-v4.md"
+    },
+    {
+      "slug": "nova-laptop-14-v5",
+      "sku": "COMP-LAP-1004",
+      "path": "sandbox\\corpus\\products\\nova-laptop-14-v5.md"
+    },
+    {
+      "slug": "pulse-watch-s-v5",
+      "sku": "WEAR-FT-2204",
+      "path": "sandbox\\corpus\\products\\pulse-watch-s-v5.md"
+    },
+    {
+      "slug": "terra-blender-pro-v5",
+      "sku": "KIT-APP-3304",
+      "path": "sandbox\\corpus\\products\\terra-blender-pro-v5.md"
+    },
+    {
+      "slug": "skydrone-mini-v5",
+      "sku": "CAM-DRN-4404",
+      "path": "sandbox\\corpus\\products\\skydrone-mini-v5.md"
+    },
+    {
+      "slug": "cozy-throw-xl-v5",
+      "sku": "HOME-TXT-5504",
+      "path": "sandbox\\corpus\\products\\cozy-throw-xl-v5.md"
+    },
+    {
+      "slug": "spark-gaming-mouse-v5",
+      "sku": "GAM-PER-6604",
+      "path": "sandbox\\corpus\\products\\spark-gaming-mouse-v5.md"
+    },
+    {
+      "slug": "pure-air-300-v5",
+      "sku": "HOME-AR-7704",
+      "path": "sandbox\\corpus\\products\\pure-air-300-v5.md"
+    },
+    {
+      "slug": "ridge-hiking-boot-v5",
+      "sku": "OUT-FW-8804",
+      "path": "sandbox\\corpus\\products\\ridge-hiking-boot-v5.md"
+    },
+    {
+      "slug": "luma-desk-lamp-v5",
+      "sku": "OFF-LGT-9904",
+      "path": "sandbox\\corpus\\products\\luma-desk-lamp-v5.md"
+    },
+    {
+      "slug": "frost-chest-7cu-v5",
+      "sku": "APP-FRZ-1004",
+      "path": "sandbox\\corpus\\products\\frost-chest-7cu-v5.md"
+    }
+  ]
+}

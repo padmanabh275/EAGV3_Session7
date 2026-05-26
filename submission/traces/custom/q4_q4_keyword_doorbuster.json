@@ -1,0 +1,82 @@
+{
+  "generated_at": "2026-05-26T13:58:54Z",
+  "catalog_stats": {
+    "products": 55,
+    "indexed_chunks": 58,
+    "fact_records": 57,
+    "currency": "INR",
+    "market": "India"
+  },
+  "gateway": "llm_gatewayV7 :8107",
+  "trace_id": "q4",
+  "eval_id": "q4_keyword_doorbuster",
+  "type": "keyword",
+  "query": "Which Indian retailer lists the PortaCharge Mini 5000 at ₹899?",
+  "expected_sources": [
+    "sandbox:corpus/products/portacharge-mini.md"
+  ],
+  "must_contain": [
+    "Snapdeal",
+    "899",
+    "PortaCharge"
+  ],
+  "with_corpus": {
+    "use_index": true,
+    "answer": "Snapdeal: ₹899 — lightning deal tier, limit 2 per account.",
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "source_count": 6,
+    "top_sources": [
+      {
+        "rank": 1,
+        "source": "sandbox:corpus/products/portacharge-mini.md",
+        "indexed_from": null,
+        "chunk_preview": "# PortaCharge Mini 5000 SKU: ACC-PWR-1099 Category: Accessories Market: India (INR / ₹) PortaCharge Mini 5000 — pocket 5000 mAh power bank, 22.5W USB-C PD, BIS certification mark. Retail offers (INR): - Snapdeal: ₹899 — lightning deal tier, limit 2 per account - Flipkart: ₹1,099 "
+      },
+      {
+        "rank": 2,
+        "source": "sandbox:corpus/products/skydrone-mini-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# SkyDrone Mini SKU: CAM-DRN-4401 Category: Cameras Market: India (INR / ₹) SkyDrone Mini — 249g FPV quad (DGCA nano rules apply). Feature notes: India model 2024; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹28,399 - Croma: "
+      },
+      {
+        "rank": 3,
+        "source": "sandbox:corpus/products/pure-air-300-v5.md",
+        "indexed_from": null,
+        "chunk_preview": "# PureAir 300 HEPA SKU: HOME-AR-7704 Category: Home Market: India (INR / ₹) PureAir 300 HEPA — CADR 220 room purifier. Feature notes: India model 2024; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹17,549 - Amazon.in: ₹16,399 "
+      },
+      {
+        "rank": 4,
+        "source": "sandbox:corpus/products/voltendure-a54.md",
+        "indexed_from": null,
+        "chunk_preview": "# VoltEndure A54 SKU: PHON-AND-5521 Category: Mobile Market: India (INR / ₹) VoltEndure A54 — mid-tier Android handset tuned for battery endurance, not mobile gaming scores. Power: 5200 mAh silicon-carbon cell; vendor quotes 48 hours typical mixed use between full charges (Wi‑Fi,"
+      }
+    ],
+    "pass_checks": {
+      "Snapdeal": true,
+      "899": true,
+      "PortaCharge": false
+    },
+    "pass": true
+  },
+  "no_corpus": {
+    "use_index": false,
+    "answer": "I cannot verify specific product listings or prices without access to a catalog. However, you can check popular Indian retailers like Amazon, Flipkart, or local electronics stores for the PortaCharge Mini 5000 and its pricing.",
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "source_count": 0,
+    "top_sources": [],
+    "pass_checks": {
+      "Snapdeal": false,
+      "899": false,
+      "PortaCharge": true
+    },
+    "pass": false,
+    "expected_fail": true
+  },
+  "comparison": {
+    "with_passes": true,
+    "no_passes": false,
+    "discriminates": true
+  }
+}

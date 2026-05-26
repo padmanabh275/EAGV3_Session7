@@ -1,0 +1,82 @@
+{
+  "generated_at": "2026-05-26T13:58:54Z",
+  "catalog_stats": {
+    "products": 55,
+    "indexed_chunks": 58,
+    "fact_records": 57,
+    "currency": "INR",
+    "market": "India"
+  },
+  "gateway": "llm_gatewayV7 :8107",
+  "trace_id": "q3",
+  "eval_id": "q3_keyword_sku_price",
+  "type": "keyword",
+  "query": "What is Flipkart's exact INR price for SKU ELEC-HEAD-8842?",
+  "expected_sources": [
+    "sandbox:corpus/products/quietwave-pro.md"
+  ],
+  "must_contain": [
+    "15,999",
+    "Flipkart",
+    "ELEC-HEAD-8842"
+  ],
+  "with_corpus": {
+    "use_index": true,
+    "answer": "Flipkart: ₹15,999",
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "source_count": 6,
+    "top_sources": [
+      {
+        "rank": 1,
+        "source": "sandbox:corpus/products/quietwave-pro.md",
+        "indexed_from": null,
+        "chunk_preview": "# QuietWave Pro SKU: ELEC-HEAD-8842 Category: Audio Market: India (INR / ₹) QuietWave Pro — over-ear closed-back headphones for daily commuters and open-plan staff. Acoustic design: adaptive feed-forward dampening for low-frequency rumble (Mumbai suburban local train vibration, m"
+      },
+      {
+        "rank": 2,
+        "source": "sandbox:corpus/products/brewmaster-12.md",
+        "indexed_from": null,
+        "chunk_preview": "# BrewMaster 12-Cup Thermal SKU: HOME-KET-3310 Category: Kitchen Market: India (INR / ₹) BrewMaster 12-Cup Thermal — drip coffee maker for Indian 230V, stainless thermal carafe. Programmable bloom; keeps heat ~4 hours. Suitable for filter coffee decoction or ground coffee. Pricin"
+      },
+      {
+        "rank": 3,
+        "source": "sandbox:corpus/products/cozy-throw-xl-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# CozyThrow XL SKU: HOME-TXT-5501 Category: Home Market: India (INR / ₹) CozyThrow XL — heated fleece throw for North India winters. Feature notes: India model 2025; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹5,549 - Amazon"
+      },
+      {
+        "rank": 4,
+        "source": "sandbox:corpus/products/frost-chest-7cu-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# FrostChest 7 cu ft SKU: APP-FRZ-1001 Category: Appliances Market: India (INR / ₹) FrostChest 7 cu ft — deep freezer 7 cu ft. Feature notes: India model 2024; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹39,799 - Amazon.in: "
+      }
+    ],
+    "pass_checks": {
+      "15,999": true,
+      "Flipkart": true,
+      "ELEC-HEAD-8842": false
+    },
+    "pass": true
+  },
+  "no_corpus": {
+    "use_index": false,
+    "answer": "I'm sorry, but I cannot verify the exact price for SKU ELEC-HEAD-8842 on Flipkart or any other platform without access to a product catalog. You may want to check Flipkart's website directly for the most accurate and up-to-date pricing information.",
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "source_count": 0,
+    "top_sources": [],
+    "pass_checks": {
+      "15,999": false,
+      "Flipkart": true,
+      "ELEC-HEAD-8842": true
+    },
+    "pass": true,
+    "expected_fail": true
+  },
+  "comparison": {
+    "with_passes": true,
+    "no_passes": true,
+    "discriminates": true
+  }
+}

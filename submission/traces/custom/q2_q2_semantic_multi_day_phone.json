@@ -1,0 +1,82 @@
+{
+  "generated_at": "2026-05-26T13:58:54Z",
+  "catalog_stats": {
+    "products": 55,
+    "indexed_chunks": 58,
+    "fact_records": 57,
+    "currency": "INR",
+    "market": "India"
+  },
+  "gateway": "llm_gatewayV7 :8107",
+  "trace_id": "q2",
+  "eval_id": "q2_semantic_multi_day_phone",
+  "type": "semantic",
+  "query": "I need a handset that can go about two days on a charge for light use — which listing fits, and who sells it cheapest in India?",
+  "expected_sources": [
+    "sandbox:corpus/products/voltendure-a54.md"
+  ],
+  "must_contain": [
+    "VoltEndure",
+    "48",
+    "36,499"
+  ],
+  "with_corpus": {
+    "use_index": true,
+    "answer": "The VoltEndure A54 fits your requirement as it is tuned for battery endurance and can last about 48 hours on a charge with typical mixed use. The cheapest listing is from Reliance Digital at ₹36,499, with an additional bank offer of ₹1,500 off select cards.",
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "source_count": 6,
+    "top_sources": [
+      {
+        "rank": 1,
+        "source": "sandbox:corpus/products/voltendure-a54.md",
+        "indexed_from": null,
+        "chunk_preview": "# VoltEndure A54 SKU: PHON-AND-5521 Category: Mobile Market: India (INR / ₹) VoltEndure A54 — mid-tier Android handset tuned for battery endurance, not mobile gaming scores. Power: 5200 mAh silicon-carbon cell; vendor quotes 48 hours typical mixed use between full charges (Wi‑Fi,"
+      },
+      {
+        "rank": 2,
+        "source": "sandbox:corpus/products/brewmaster-12.md",
+        "indexed_from": null,
+        "chunk_preview": "# BrewMaster 12-Cup Thermal SKU: HOME-KET-3310 Category: Kitchen Market: India (INR / ₹) BrewMaster 12-Cup Thermal — drip coffee maker for Indian 230V, stainless thermal carafe. Programmable bloom; keeps heat ~4 hours. Suitable for filter coffee decoction or ground coffee. Pricin"
+      },
+      {
+        "rank": 3,
+        "source": "sandbox:corpus/products/cozy-throw-xl-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# CozyThrow XL SKU: HOME-TXT-5501 Category: Home Market: India (INR / ₹) CozyThrow XL — heated fleece throw for North India winters. Feature notes: India model 2025; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹5,549 - Amazon"
+      },
+      {
+        "rank": 4,
+        "source": "sandbox:corpus/products/frost-chest-7cu-v2.md",
+        "indexed_from": null,
+        "chunk_preview": "# FrostChest 7 cu ft SKU: APP-FRZ-1001 Category: Appliances Market: India (INR / ₹) FrostChest 7 cu ft — deep freezer 7 cu ft. Feature notes: India model 2024; 1-year national warranty; BIS / regulatory labels as applicable. Street pricing (INR): - Flipkart: ₹39,799 - Amazon.in: "
+      }
+    ],
+    "pass_checks": {
+      "VoltEndure": true,
+      "48": true,
+      "36,499": true
+    },
+    "pass": true
+  },
+  "no_corpus": {
+    "use_index": false,
+    "answer": "I can't verify specific listings or prices without access to a product catalog. However, for a handset that can last about two days on a charge for light use, you might want to consider models with large battery capacities, typically around 5000mAh or more. Brands like Xiaomi, Realme, Samsung, and Motorola often have models that fit this criterion.\n\nFor the best price, I recommend checking popular e-commerce platforms like Amazon, Flipkart, or local electronics retailers. They often have competitive pricing and discounts.",
+    "provider": "openai",
+    "model": "gpt-4o-mini",
+    "source_count": 0,
+    "top_sources": [],
+    "pass_checks": {
+      "VoltEndure": false,
+      "48": false,
+      "36,499": false
+    },
+    "pass": false,
+    "expected_fail": true
+  },
+  "comparison": {
+    "with_passes": true,
+    "no_passes": false,
+    "discriminates": true
+  }
+}

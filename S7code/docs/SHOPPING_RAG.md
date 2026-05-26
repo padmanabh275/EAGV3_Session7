@@ -82,26 +82,133 @@ uv run python scripts/shopping_ask.py "What is Flipkart's exact INR price for SK
 uv run python scripts/shopping_ask.py --no-index "What is Flipkart's exact INR price for SKU ELEC-HEAD-8842?"
 ```
 
-## Eval queries (5) — India / INR
+## Eval design — five corpus queries
 
-| ID | Type | Query (short) | Gold source | Expected answer (with index) |
-|----|------|---------------|-------------|----------------------------|
-| q1 | **Semantic** | Commuter rail + IT park noise + Flipkart INR | `quietwave-pro.md` | QuietWave Pro; **Flipkart ₹15,999** |
-| q2 | **Semantic** | ~2-day battery phone, cheapest in India | `voltendure-a54.md` | VoltEndure A54; **Vijay Sales ₹36,499** |
-| q3 | Keyword | Flipkart INR for `ELEC-HEAD-8842` | `quietwave-pro.md` | **₹15,999** on Flipkart |
-| q4 | Keyword | Who sells PortaCharge Mini at **₹899** | `portacharge-mini.md` | **Snapdeal ₹899** |
-| q5 | **Semantic** | Toddler letter-shape gift + INR | `letterplay-softblocks.md` | LetterPlay; **Amazon.in ₹1,699** |
+These five queries are the acceptance tests for the shopping RAG stack. Each is designed so that:
 
-Full spec: `eval/shopping_queries.json`
+| Criterion | With index (`use_index=true`) | Without index (`--no-index` / RAG off) |
+|-----------|--------------------------------|----------------------------------------|
+| **Pass** | Answer cites the correct product, retailer, and **exact INR** from the indexed chunk | — |
+| **Fail** | — | Omits fabricated promo prices, wrong SKU/retailer pairing, or states the catalog is unavailable |
+| **Semantic (≥2)** | Retrieval must match by **meaning**, not shared keywords between query and gold chunk | Same — model has no catalog rows to ground on |
 
-### Semantic vs keyword
+Machine-readable spec: [`eval/shopping_queries.json`](../eval/shopping_queries.json) (loaded by the web UI **Eval queries** panel).
 
-- **q1, q2, q5:** Query wording must not appear verbatim in gold chunks (`must_not_appear_in_gold_chunk`).
-- **q3, q4:** Require exact **SKU / ₹ / retailer** from the index.
+Run every query both ways (CLI or **A/B Compare** in the UI):
 
-### Without index (control)
+```powershell
+# PASS — RAG on
+uv run python scripts/shopping_ask.py "<query>"
 
-Runs should omit exact promo prices (₹899, ₹15,999), confuse SKUs, or say the catalog is unavailable.
+# FAIL — control
+uv run python scripts/shopping_ask.py --no-index "<query>"
+```
+
+---
+
+### Q1 — Semantic (commute / open-plan noise → headphones)
+
+**Query (verbatim):**
+
+> What audio gear cuts vibration from commuter rail and open-plan IT park desks, and what do Flipkart and rivals charge in rupees?
+
+| Field | Value |
+|-------|--------|
+| **Gold source** | `sandbox/corpus/products/quietwave-pro.md` |
+| **Product** | QuietWave Pro (`ELEC-HEAD-8842`) |
+| **Pass anchors** | `QuietWave`, `15,999`, `Flipkart` |
+| **Why semantic** | Query says *commuter rail*, *IT park desks*, *rivals charge in rupees* — corpus uses *Mumbai suburban local train*, *coworking bays*, *Flipkart: ₹15,999*. None of the query phrases appear verbatim in the gold chunk (`must_not_appear_in_gold_chunk` in JSON). |
+| **With index** | Names QuietWave Pro; cites Flipkart **₹15,999** (and may mention Croma / Reliance Digital from the same chunk). |
+| **Without index** | Cannot know the synthetic promo row; should refuse exact ₹15,999 or invent a wrong price. |
+
+---
+
+### Q2 — Semantic (multi-day battery phone)
+
+**Query (verbatim):**
+
+> I need a handset that can go about two days on a charge for light use — which listing fits, and who sells it cheapest in India?
+
+| Field | Value |
+|-------|--------|
+| **Gold source** | `sandbox/corpus/products/voltendure-a54.md` |
+| **Product** | VoltEndure A54 (`PHON-AND-5521`) |
+| **Pass anchors** | `VoltEndure`, `48`, `36,499` (Vijay Sales lowest listed) |
+| **Why semantic** | Query says *two days on a charge*, *cheapest in India*, *light use* — chunk says *48 hours typical mixed use*, *5200 mAh*, *Vijay Sales: ₹36,499*. Query wording does not appear in the chunk. |
+| **With index** | Identifies VoltEndure A54; cites **₹36,499** at Vijay Sales (or compares Flipkart ₹36,999). |
+| **Without index** | No access to Vijay Sales scrape; should not state ₹36,499 as fact. |
+
+---
+
+### Q3 — Keyword (exact SKU + retailer)
+
+**Query (verbatim):**
+
+> What is Flipkart's exact INR price for SKU ELEC-HEAD-8842?
+
+| Field | Value |
+|-------|--------|
+| **Gold source** | `sandbox/corpus/products/quietwave-pro.md` |
+| **Pass anchors** | `15,999`, `Flipkart`, `ELEC-HEAD-8842` |
+| **Why keyword** | Requires literal SKU and retailer row from the sheet — strong lexical overlap with the chunk. |
+| **With index** | **₹15,999** on Flipkart for QuietWave Pro. |
+| **Without index** | SKU `ELEC-HEAD-8842` is synthetic; model should not guess ₹15,999. |
+
+---
+
+### Q4 — Keyword (product name + doorbuster ₹)
+
+**Query (verbatim):**
+
+> Which Indian retailer lists the PortaCharge Mini 5000 at ₹899?
+
+| Field | Value |
+|-------|--------|
+| **Gold source** | `sandbox/corpus/products/portacharge-mini.md` |
+| **Pass anchors** | `Snapdeal`, `899`, `PortaCharge` |
+| **Why keyword** | Exact product name and promo price appear in the corpus line `Snapdeal: ₹899`. |
+| **With index** | **Snapdeal** at **₹899**. |
+| **Without index** | ₹899 Snapdeal pairing is corpus-specific; control run should not assert it confidently. |
+
+---
+
+### Q5 — Semantic (toddler literacy gift)
+
+**Query (verbatim):**
+
+> Birthday gift for a three-year-old starting to recognise letter shapes — which educational toy listing matches, and at what INR prices?
+
+| Field | Value |
+|-------|--------|
+| **Gold source** | `sandbox/corpus/products/letterplay-softblocks.md` |
+| **Product** | LetterPlay SoftBlocks (`TOY-EDU-7720`) |
+| **Pass anchors** | `LetterPlay`, `24–48`, `1,699` (Amazon.in lowest in chunk) |
+| **Why semantic** | Query says *birthday*, *three-year-old*, *recognise letter shapes*, *gift* — chunk says *24–48 months*, *pre-literacy*, *embossed … letter forms*. Query phrases are absent from the gold chunk. |
+| **With index** | LetterPlay SoftBlocks; **Amazon.in ₹1,699** (or age band 24–48 months). |
+| **Without index** | Should not fabricate Amazon.in ₹1,699 for this synthetic SKU. |
+
+---
+
+### Summary table
+
+| ID | Type | Gold file | Decisive INR / retailer |
+|----|------|-----------|-------------------------|
+| q1 | Semantic | `quietwave-pro.md` | Flipkart **₹15,999** |
+| q2 | Semantic | `voltendure-a54.md` | Vijay Sales **₹36,499** |
+| q3 | Keyword | `quietwave-pro.md` | Flipkart **₹15,999** + SKU |
+| q4 | Keyword | `portacharge-mini.md` | Snapdeal **₹899** |
+| q5 | Semantic | `letterplay-softblocks.md` | Amazon.in **₹1,699** |
+
+### Semantic vs keyword (quick reference)
+
+- **Semantic (q1, q2, q5):** Paraphrased intent; `must_not_appear_in_gold_chunk` in JSON lists query phrases that must **not** appear verbatim in the answering chunk — proves recall is not mere keyword match.
+- **Keyword (q3, q4):** Exact SKU, product name, or ₹ amount from the index is required; fails without the catalog row.
+
+### Scoring a run
+
+1. Rebuild index after corpus changes: `uv run python scripts/index_shopping_corpus.py --fresh`
+2. For each query: **with index** → answer contains all `must_contain` strings from JSON; **without index** → missing those anchors or explicit “cannot verify” / wrong guess.
+3. In the web UI: use **Eval queries** chips, then **A/B** — **With RAG** should pass, **Without index** should fail the same anchors.
 
 ## Indian retailers in corpus
 

@@ -49,11 +49,14 @@ def sample_queries() -> list[dict[str, str]]:
 
 
 def _source_group_key(source: str) -> str:
-    """Collapse duplicate user-note versions (same slug, different timestamp)."""
-    if "user-notes/" not in source:
-        return source
-    name = source.rsplit("/", 1)[-1]
-    return re.sub(r"-\d{8}-\d{6}\.md$", "", name)
+    """Collapse user-note timestamps and product variant files (slug-v2.md → slug)."""
+    if "user-notes/" in source:
+        name = source.rsplit("/", 1)[-1]
+        return re.sub(r"-\d{8}-\d{6}\.md$", "", name)
+    if "products/" in source:
+        name = source.rsplit("/", 1)[-1]
+        return re.sub(r"-v\d+\.md$", ".md", name).removesuffix(".md")
+    return source
 
 
 def _extract_answer_section(text: str) -> str:
@@ -65,23 +68,33 @@ def _extract_answer_section(text: str) -> str:
     return text.strip()
 
 
-def _merge_hits(hits: list, *, top_k: int) -> list[dict[str, Any]]:
-    """Dedupe by source group; merge multi-chunks; prefer answer body for user-notes."""
-    groups: dict[str, list[tuple[Any, dict]]] = {}
+def _query_note_relevance(query: str, user_query: str | None) -> float:
+    if not user_query:
+        return 0.0
+    qt = set(re.findall(r"\w+", query.lower())) - {"the", "and", "for", "what", "who", "which", "inr"}
+    ut = set(re.findall(r"\w+", user_query.lower())) - {"the", "and", "for", "what", "who", "which", "inr"}
+    if not qt or not ut:
+        return 0.0
+    return len(qt & ut) / len(qt)
+
+
+def _merge_hits(hits: list, *, top_k: int, query: str = "") -> list[dict[str, Any]]:
+    """Dedupe by source group; merge multi-chunks; preserve hybrid retrieval order."""
+    groups: dict[str, list[tuple[Any, dict, int]]] = {}
     order: list[str] = []
-    for item in hits:
+    for rank, item in enumerate(hits):
         val = item.value or {}
         key = _source_group_key(item.source or item.id)
         if key not in groups:
             order.append(key)
             groups[key] = []
-        groups[key].append((item, val))
+        groups[key].append((item, val, rank))
 
     merged: list[dict[str, Any]] = []
     for key in order:
-        items = sorted(groups[key], key=lambda x: x[1].get("chunk_index") or 0)
-        item0, val0 = items[0]
-        parts = [v.get("chunk") or "" for _, v in items]
+        items = sorted(groups[key], key=lambda x: (x[1].get("chunk_index") or 0, x[2]))
+        item0, val0, best_rank = items[0]
+        parts = [v.get("chunk") or "" for _, v, _ in items]
         full = "\n".join(p for p in parts if p).strip() or item0.descriptor
         indexed_from = val0.get("indexed_from")
         user_query = val0.get("user_query")
@@ -101,26 +114,41 @@ def _merge_hits(hits: list, *, top_k: int) -> list[dict[str, Any]]:
                 "chunk_index": val0.get("chunk_index"),
                 "indexed_from": indexed_from,
                 "user_query": user_query,
+                "retrieval_rank": min(r for _, _, r in items),
             }
         )
 
-    # User-indexed notes first, then catalog products
-    merged.sort(
-        key=lambda s: (
-            0 if s.get("indexed_from") == "without_rag" else 1,
-            s.get("source") or "",
-        )
-    )
+    # Keep hybrid retrieval order; push irrelevant user-notes to the tail
+    def _sort_key(s: dict[str, Any]) -> tuple:
+        rank = s.get("retrieval_rank", 999)
+        if s.get("indexed_from") == "without_rag":
+            rel = _query_note_relevance(query, s.get("user_query"))
+            if rel < 0.25:
+                return (1, rank + 10_000)
+        return (0, rank)
+
+    merged.sort(key=_sort_key)
     for i, row in enumerate(merged[:top_k], 1):
         row["rank"] = i
     return merged[:top_k]
 
 
 def search(query: str, *, top_k: int = 6) -> list[dict[str, Any]]:
+    """Hybrid retrieval: vector similarity + keyword overlap, then merge/dedupe."""
     ensure_gateway()
     fetch_k = max(top_k * 4, 24)
-    hits = memory.read(query, kinds=["fact"], top_k=fetch_k)
-    return _merge_hits(hits, top_k=top_k)
+    vec_hits = memory._vector_search(query, kinds=["fact"], top_k=fetch_k)  # noqa: SLF001
+    kw_hits = memory._keyword_search(query, None, kinds=["fact"], top_k=fetch_k)  # noqa: SLF001
+    seen: set[str] = set()
+    combined = []
+    for item in kw_hits + vec_hits:
+        if item.id in seen:
+            continue
+        seen.add(item.id)
+        combined.append(item)
+    if not combined:
+        combined = memory.read(query, kinds=["fact"], top_k=fetch_k)
+    return _merge_hits(combined, top_k=top_k, query=query)
 
 
 def ask(
