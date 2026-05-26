@@ -1,0 +1,7 @@
+.env
+.env.*
+!.env.example
+gateway_v7.db
+gateway_boot.log
+.venv/
+__pycache__/

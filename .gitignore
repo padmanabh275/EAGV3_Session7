@@ -1,0 +1,21 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# gateway runtime
+llm_gatewayV7/gateway_v7.db
+llm_gatewayV7/.venv/
+
+# agent runtime (see also S7code/.gitignore)
+S7code/state/
+S7code/sandbox/
+S7code/usage.json
+S7code/.venv/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+
+.DS_Store

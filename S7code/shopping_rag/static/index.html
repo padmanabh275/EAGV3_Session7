@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PriceCompare India — Smart INR Shopping</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="bg-mesh" aria-hidden="true"></div>
+  <div class="bg-tricolor" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="brand">
+      <div class="logo-wrap">
+        <span class="logo">₹</span>
+        <span class="logo-ring"></span>
+      </div>
+      <div>
+        <h1>PriceCompare <span class="highlight">India</span></h1>
+        <p class="tagline">Vector search · 55+ products · Flipkart · Amazon.in · Croma</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="btn-theme" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <div id="status-pill" class="status-pill loading">
+        <span class="status-dot"></span>
+        <span id="status-text">Connecting…</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats-row" id="stats-row">
+    <article class="stat-card">
+      <span class="stat-label">Products</span>
+      <span class="stat-value" id="stat-products">—</span>
+    </article>
+    <article class="stat-card accent-saffron">
+      <span class="stat-label">Indexed chunks</span>
+      <span class="stat-value" id="stat-chunks">—</span>
+    </article>
+    <article class="stat-card accent-green">
+      <span class="stat-label">Currency</span>
+      <span class="stat-value">INR ₹</span>
+    </article>
+    <article class="stat-card accent-blue">
+      <span class="stat-label">Gateway V7</span>
+      <span class="stat-value" id="stat-gateway">—</span>
+    </article>
+  </section>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2 class="panel-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Ask
+        </h2>
+        <div class="textarea-wrap">
+          <textarea id="query" rows="4" placeholder="Compare INR prices… e.g. cheapest phone with 2-day battery in India"></textarea>
+          <span id="char-count" class="char-count">0</span>
+        </div>
+
+        <div class="option-grid">
+          <label class="switch">
+            <input type="checkbox" id="use-index" checked />
+            <span class="switch-slider"></span>
+            <span class="switch-label">RAG catalog</span>
+          </label>
+          <label class="field-inline">
+            <span>Top-K</span>
+            <input type="range" id="top-k" min="1" max="15" value="6" />
+            <output id="top-k-val">6</output>
+          </label>
+        </div>
+
+        <div class="btn-row">
+          <button id="btn-ask" class="btn primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Get answer
+          </button>
+          <button id="btn-search" class="btn ghost">Search</button>
+          <button id="btn-compare" class="btn outline" title="RAG vs no-index side by side">A/B</button>
+        </div>
+        <button type="button" id="btn-clear" class="btn text">Clear</button>
+      </section>
+
+      <section class="panel samples-panel">
+        <h2 class="panel-title small">Eval queries</h2>
+        <div id="sample-list" class="sample-list"></div>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="history-head">
+          <h2 class="panel-title small">Recent</h2>
+          <button type="button" id="btn-clear-history" class="btn text tiny">Clear</button>
+        </div>
+        <ul id="history-list" class="history-list"></ul>
+      </section>
+    </aside>
+
+    <div class="main-content">
+      <div id="index-hint" class="index-hint hidden" role="status"></div>
+      <nav class="tabs" role="tablist">
+        <button type="button" class="tab active" data-tab="answer" role="tab">Answer</button>
+        <button type="button" class="tab" data-tab="sources" role="tab">Sources <span id="source-count" class="tab-badge">0</span></button>
+        <button type="button" class="tab" data-tab="compare" role="tab">A/B Compare</button>
+      </nav>
+
+      <section id="tab-answer" class="tab-panel active panel glass">
+        <div class="panel-toolbar">
+          <span id="answer-mode" class="mode-tag rag">RAG</span>
+          <div class="toolbar-actions">
+            <button type="button" id="btn-index-answer" class="btn index-btn small" title="Save this answer into the RAG catalog" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Add to RAG
+            </button>
+            <button type="button" id="btn-rag-again" class="btn ghost small hidden" title="Re-ask with catalog index">Retry with RAG</button>
+            <button type="button" id="btn-copy" class="icon-btn small" title="Copy answer" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="answer" class="answer empty">
+          <div class="empty-state">
+            <div class="empty-icon">🛒</div>
+            <p>Ask anything about products, SKUs, or INR prices across Indian retailers.</p>
+            <p class="hint">Ctrl+Enter to submit · Try an eval query on the left</p>
+          </div>
+        </div>
+        <div id="meta" class="meta"></div>
+      </section>
+
+      <section id="tab-sources" class="tab-panel panel glass">
+        <div id="sources" class="sources">
+          <div class="empty-state compact">
+            <p>Retrieved FAISS chunks appear here when RAG is enabled.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-compare" class="tab-panel panel glass">
+        <p class="compare-hint">Compare with vs without the catalog. If RAG is empty, index the <strong>Without index</strong> answer, then retry with RAG.</p>
+        <div class="compare-grid">
+          <article class="compare-col">
+            <header class="compare-header rag">
+              With RAG
+              <button type="button" id="btn-refresh-rag" class="btn ghost tiny hidden" title="Re-ask with updated catalog">↻ Refresh</button>
+            </header>
+            <div id="compare-rag" class="compare-body empty">Run A/B compare from the sidebar.</div>
+          </article>
+          <article class="compare-col">
+            <header class="compare-header plain">
+              Without index
+              <button type="button" id="btn-index-plain" class="btn index-btn tiny" disabled title="Index this answer for future RAG">+ Index</button>
+            </header>
+            <div id="compare-plain" class="compare-body empty">Model general knowledge only.</div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>S7 Session 7 · llm_gatewayV7 + FAISS memory</span>
+    <span><kbd>Ctrl</kbd>+<kbd>Enter</kbd> submit</span>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

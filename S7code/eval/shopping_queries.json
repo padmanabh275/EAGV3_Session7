@@ -1,0 +1,45 @@
+[
+  {
+    "id": "q1_semantic_commute_anc",
+    "type": "semantic",
+    "query": "What audio gear cuts vibration from commuter rail and open-plan IT park desks, and what do Flipkart and rivals charge in rupees?",
+    "expected_sources": ["sandbox:corpus/products/quietwave-pro.md"],
+    "must_contain": ["QuietWave", "15,999", "Flipkart"],
+    "must_not_appear_in_gold_chunk": ["commuter rail", "IT park desks", "rivals charge in rupees"],
+    "notes": "Chunk: Mumbai local train / metro / coworking; Flipkart ₹15,999. Query uses different phrases."
+  },
+  {
+    "id": "q2_semantic_multi_day_phone",
+    "type": "semantic",
+    "query": "I need a handset that can go about two days on a charge for light use — which listing fits, and who sells it cheapest in India?",
+    "expected_sources": ["sandbox:corpus/products/voltendure-a54.md"],
+    "must_contain": ["VoltEndure", "48", "36,499"],
+    "must_not_appear_in_gold_chunk": ["two days", "cheapest in India", "light use"],
+    "notes": "Chunk: 48 hours / 5200 mAh; Vijay Sales ₹36,499. Query paraphrases endurance."
+  },
+  {
+    "id": "q3_keyword_sku_price",
+    "type": "keyword",
+    "query": "What is Flipkart's exact INR price for SKU ELEC-HEAD-8842?",
+    "expected_sources": ["sandbox:corpus/products/quietwave-pro.md"],
+    "must_contain": ["15,999", "Flipkart", "ELEC-HEAD-8842"],
+    "notes": "Requires literal SKU + Flipkart ₹ row from the sheet."
+  },
+  {
+    "id": "q4_keyword_doorbuster",
+    "type": "keyword",
+    "query": "Which Indian retailer lists the PortaCharge Mini 5000 at ₹899?",
+    "expected_sources": ["sandbox:corpus/products/portacharge-mini.md"],
+    "must_contain": ["Snapdeal", "899", "PortaCharge"],
+    "notes": "Exact product name + INR promo + Snapdeal."
+  },
+  {
+    "id": "q5_semantic_toddler_literacy",
+    "type": "semantic",
+    "query": "Birthday gift for a three-year-old starting to recognise letter shapes — which educational toy listing matches, and at what INR prices?",
+    "expected_sources": ["sandbox:corpus/products/letterplay-softblocks.md"],
+    "must_contain": ["LetterPlay", "24–48", "1,699"],
+    "must_not_appear_in_gold_chunk": ["birthday", "three-year-old", "recognise letter", "gift"],
+    "notes": "Chunk: pre-literacy / 24–48 months; Amazon.in ₹1,699. British spelling in query vs US in corpus ok."
+  }
+]
